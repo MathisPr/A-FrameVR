@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A-Frame VR - Interaction 2 Super-hands - grabbable </title>
+    <!-- Based on udemy A-Frame L23-->
+   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+ <!--   <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script> -->
+    <!-- Script for event-set -->
+    <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+    <!-- Not working with super-hands@3.0.0-->
+    <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>    
+      
+      <a-entity progressive-controls></a-entity>
+      
+      <!-- Box grabbale -->
+      <a-box  color="green" position="-2.25 0 -9" scale="2 1 0.1" grabbable            
+      
+             >
+        <a-text value="grab me" position="-0.5 0.7 0" color="green"></a-text>
+      </a-box>
+
+      <!-- Box grabbale with color change-->
+      <a-box  color="blue" position="2.25 0 -9" scale="2 1 0.1" id="bluebox" grabbable            
+              event-set__start="_event: grab-start; target: #bluebox; color: red"
+              event-set__end  ="_event: grab-end; target: #bluebox; color: blue"
+             >
+        <a-text value="grab me to change my color" position="-0.5 0.7 0" color="blue"></a-text>
+      </a-box>
+      
+      <!-- Box just for position reference --> 
+      <a-box  color="#212121" position="0 0 -9" scale="2 1 0.1"            
+      >
+      </a-box>
+        
+    </a-scene>
+  </body>
+</html>
