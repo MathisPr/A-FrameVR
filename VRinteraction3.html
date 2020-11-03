@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>A-Frame VR - Interaction 2 Super-hands - grabbable </title>
+    <title>A-Frame VR - Interaction 2 Super-hands - draggable </title>
     <!-- Based on udemy A-Frame L23-->
    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
  <!--   <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script> -->
@@ -16,19 +16,25 @@
       
       <a-entity progressive-controls></a-entity>
       
-      <!-- Box grabbale -->
-      <a-box  color="green" position="-2.25 0 -9" scale="2 1 0.1" grabbable            
-      
-             >
-        <a-text value="grab me" position="-0.5 0.7 0" color="green"></a-text>
+      <!-- Box draggable -->
+      <a-box  color="green" position="-2.25 0 -9" scale="2 1 0.1" draggable            
+              event-set__drag="_event: drag-drop; target: #bluebox; color: red"
+        >
+        <a-text value="Drag me (stationary)" position="-0.5 0.7 0" color="green"></a-text>
       </a-box>
 
-      <!-- Box grabbale with color change-->
-      <a-box  color="blue" position="2.25 0 -9" scale="2 1 0.1" id="bluebox" grabbable            
-              event-set__start="_event: grab-start; target: #bluebox; color: red"
-              event-set__end  ="_event: grab-end; target: #bluebox; color: blue"
+      <!-- Box draggable with grabbable-->
+      <a-box  color="green" position="-2.25 2 -9" scale="2 1 0.1" draggable grabbable           
+              event-set__drag="_event: drag-drop; target: #bluebox; color: red"
+              event-set__end  ="_event: grab-end" 
+        >
+        <a-text value="Drag me" position="-0.5 0.7 0" color="green"></a-text>
+      </a-box>
+      
+      <!-- Box with droppable to drop on to change color of draggable box-->
+      <a-box  color="blue" position="2.25 0 -9" scale="2 1 0.1" id="bluebox" droppable           
              >
-        <a-text value="grab me to change my color" position="-0.5 0.7 0" color="blue"></a-text>
+        <a-text value="drop on me to change color" position="-0.5 0.7 0" color="blue"></a-text>
       </a-box>
       
       <!-- Box just for position reference --> 
