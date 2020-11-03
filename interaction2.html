@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+    <head>
+        <title>A-Frame Interaction</title>
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <!-- Script for event-set -->
+        <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+    </head>
+    
+    <body>
+        <a-scene>
+            <!-- Cursor primitive -->
+            <a-camera>
+                <!-- Cursor auto click when 1,5 sek on target -->
+<!--                <a-entity cursor="fuse: true; fuseTimeout: 1500" position="0 0 -1"
+                          geometry="primitive: sphere; radius: 0.005"
+                          material="color: #000000; shader: flat; opacity: 0.5"
+                >
+                         Animation Cursor scale - not working 
+                        <a-animation    
+                                attribute="scale"
+                                to="3 3 3"
+                                dur="1500"
+                                begin="cursor-fusing"
+                                fill="backwards"
+                        >
+                        </a-animation>
+                </a-entity>-->
+                
+			<a-entity cursor="fuse: true; fuseTimeout: 1000" position="0 0 -1"
+					  geometry="primitive: sphere; radius: 0.005"
+					  material="color: #000000; shader: flat; opacity: 0.5"
+                      animation__enter="property: scale;
+                                        to: 3 3 3;
+                                        dur: 1000;
+                                        easing: linear;
+                                        startEvents: mouseenter"
+                      event-set__reset="_event: animationcomplete__enter; scale: 1 1 1"
+                      animation__leave="property: scale;
+                                        to: 1 1 1;
+                                        dur: 1000;
+                                        easing: linear;
+                                        startEvents: mouseleave">
+			</a-entity>
+                
+            </a-camera>
+                
+            <a-box  color="blue" position="-2 0 -7"
+                    event-set__enter="_event: mouseenter; material.color: #FF0000"     
+                    event-set__leave="_event: mouseleave; material.color: #AA0000"
+                    event-set__tarcol="_event: click; _target: #box_yellow; material.color: #00AAFF"
+            >
+                <a-text     value="Blue" 
+                            position="0 1 0" 
+                            color="black"
+                            align="center"
+                            geometry="primitive: plane; width: 0.75; height:0.5; color:red"
+                            event-set__vis="_event: click; target: #box_blue; "
+                ></a-text>                
+                
+            </a-box>
+            
+            <!-- Hide Box Yellow -->
+            <a-box id="box_green" color="green" position="0 0 -7"
+            event-set__click="_event: click; _target: #box_yellow ; visible: false"
+            >
+                <a-text     value="Green" 
+                            position="0 1 0" 
+                            color="black"
+                            align="center"
+                            geometry="primitive: plane; width: 0.75; height:0.5; color:red"           
+                ></a-text>
+            </a-box>
+            
+            <!-- Hide itself -->
+            <a-box id= "box_yellow" color="yellow" position="2 0 -7"
+            event-set__click="_event: click; visible: false"
+            >
+                <a-text     value="Yellow" 
+                            position="0 1 0" 
+                            color="black"
+                            align="center"
+                            geometry="primitive: plane; width: 0.75; height:0.5; color:red"
+                ></a-text>
+            </a-box>
+            
+        </a-scene>
+    </body>
+</html>
+
+
