@@ -14,16 +14,15 @@
             <a-camera id="camera">
             </a-camera>
             
-            <!-- box that follows the camera --> 
+            <!-- box that follows the camera - look-at= id of target--> 
             <a-box  color="blue" position="0 0 -7" look-at="#camera">
-                <a-text value="Text" color= "black"></a-text>
+                <a-text value="Box look-at" color= "black" position="-0.5 1 0"></a-text>
             </a-box>
             
             <!-- just a reference box  --> 
             <a-box  color="red" position="2 0 -7" >
-            </a-box>
-            
-            
+                <a-text value="Box reference" color= "black" position="-0.5 1 0"></a-text>
+            </a-box>        
             
         </a-scene>
     </body>
