@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <title>A-Frame Look-at component</title>
+        <!-- Based on Udemy A-Frame L33 -->
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <!-- https://github.com/supermedium/superframe/tree/master/components/look-at/ ngokevin Part of Superframe -->
+        <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    </head>
+    
+    <body>
+        <a-scene>
+            <!-- Camera -->
+            <a-camera id="camera">
+            </a-camera>
+            
+            <!-- box that follows the camera --> 
+            <a-box  color="blue" position="0 0 -7" look-at="#camera">
+                <a-text value="Text" color= "black"></a-text>
+            </a-box>
+            
+            <!-- just a reference box  --> 
+            <a-box  color="red" position="2 0 -7" >
+            </a-box>
+            
+            
+            
+        </a-scene>
+    </body>
+</html>
+
+
