@@ -7,14 +7,24 @@
     
     <body>
         <a-scene>
-            <!-- Camera -->
-            <a-camera>
-            </a-camera>
+            <!-- Camera Rig -->
+            <a-entity position="0 0 6">
+                <!-- Camera -->
+                <!-- The "easing" property has been removed from the wasd-controls component (line 17) -->
+                <!-- look-controls="pointerLockEnabled: true" - means Camera follows mouse -->
+                <!-- wasd-controls - means speed of movement; ceep it slow in VR -->
+			     <a-entity camera position="0 1.6 0"
+					  look-controls="pointerLockEnabled: true"
+					  wasd-controls="acceleration: 50">
+                </a-entity>
                 
-            <a-box  color="blue" position="0 0 -7">
+            </a-entity>
+                
+            <a-box  color="blue" position="0 0.5 0">
             </a-box>
 
-            <a-plane scale="10 10 0"></a-plane>
+            <!-- ground -->
+            <a-plane scale="8 4 1" position="" color="grey" rotation="-90 0 0"></a-plane>
 
         </a-scene>
     </body>
