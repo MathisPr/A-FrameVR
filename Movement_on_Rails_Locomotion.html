@@ -1,7 +1,10 @@
 <!doctype html>
 <html>
     <head>
-        <title>A-Frame Movement On-Rails Locomotion/title>
+        <title>A-Frame Movement On-Rails Locomotion</title>
+        
+        <!-- progessive controls not working! -->
+        
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
         <!-- ******** NEW AFRAME-EXTRAS VERSION FOR A-FRAME v1.0.4 ******** -->
         <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js"></script>
@@ -15,7 +18,19 @@
     
     <body>
         <a-scene>
-
+                
+            <!-- Camera Rig -->
+            <a-entity movement-controls="controls: checkpoint"
+                      checkpoint-controls="mode: animate">
+                <!-- Progressive Controls -->
+                <a-entity progressive-controls></a-entity>
+            </a-entity>
+            
+            
+            <a-box      color="blue" 
+                        position="0 0 -7"
+                        checkpoint="offset: -1 -2.5 0"
+            ></a-box>
             
         </a-scene>
     </body>
