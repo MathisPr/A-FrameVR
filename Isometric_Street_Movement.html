@@ -2,7 +2,12 @@
 <html>
     <head>
         <title>A-Frame Walk in a Street by Night</title>
+        <!-- A-Frame Script-->
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <!-- Script for event-set -->
+        <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+        <!-- Navigation Mesh A-Frame Inspector Plugin by Don McCurdy-->
+        <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
     </head>
     
     <a-assets>
@@ -16,23 +21,50 @@
 
 
     <body>
-        <a-scene>
+        <a-scene inspector-plugin-recast>
             <!-- Camera Rig -->
             <a-entity position="0 0 6">
                 <!-- Camera -->
                 <!-- The "easing" property has been removed from the wasd-controls component (line 17) -->
                 <!-- look-controls="pointerLockEnabled: true" - means Camera follows mouse -->
                 <!-- wasd-controls - means speed of movement; ceep it slow in VR -->
-			     <a-entity camera position="7 1.6 0"
+                <!--
+                <a-entity camera position="7 1.6 0"
 					  look-controls="pointerLockEnabled: true"
 					  wasd-controls="acceleration: 50">
                 </a-entity>
-                
+                -->
+
+                <a-entity>
+
+                <a-camera position="7 1.6 0"
+					  look-controls="pointerLockEnabled: true"
+                      wasd-controls="acceleration: 50">
+                     
+                    <!-- Cursor -->  
+                    <a-entity cursor="fuse: true; fuseTimeout: 1500" position="0 0 -1"
+                      geometry="primitive: sphere; radius: 0.01"
+                      material="color: #000000; shader: flat; opacity: 0.5"
+            >
+                        <!-- Animation Cursor scale - not working -->
+                        <a-animation    
+                                attribute="scale"
+                                to="30 30 30"
+                                dur="1500"
+                                begin="cursor-fusing"
+                                fill="backwards"
+                        >
+                        </a-animation>
+                    </a-entity>
+
+                </a-camera>
+
             </a-entity>
 
             <!-- Sky -->
             <a-sky color="#212121"></a-sky>
             
+
             <!-- Street Scene -->
             <a-entity
                 id="Isometric_Street"
@@ -45,6 +77,9 @@
 
                 >
             </a-entity>
+
+
+        <!-- Light System-->
 
             <!-- Street-Light 1 -->
             <a-entity
@@ -82,16 +117,13 @@
             >
             </a-entity>
 
-
-            <!-- Light System-->
-
             <!-- Ambient Light -->
             <a-entity light="color: #a8a4a4; intensity: 0.2; type: ambient"></a-entity>
 
             <!-- Light Door Appartment-->
             <a-entity
                 position="3 2 -6.5"
-                light="type:  point;  color:  #00fffb;  intensity:  1;  castShadow:  true; distance: 5"
+                light="type:  point;  color:  #00fffb;  intensity:  15;  castShadow:  true; distance: 5"
             ></a-entity>
 
             <!-- Light Store Sign-->
@@ -122,6 +154,27 @@
             <!--
             <a-plane scale="8 4 1" position="" color="grey" rotation="-90 0 0"></a-plane>
             -->
+
+            
+        <!-- Interaction -->
+            <a-box  
+                    id="box"
+                    color="blue" 
+                    position="9 1.5 -9"
+                    event-set__enter="_event: mouseenter; _target: #TestText; visible: true"     
+                    event-set__leave="_event: mouseleave; _target: #TestText; visible: false"
+                    event-set__tarcol="_event: click; _target: #TestText; material.color: #00AAFF"
+            >
+
+            <a-text
+                id="TestText"
+                position="0 1 0"
+                color="white"
+                value="Das ist ein Test"
+                visible="false"
+            ></a-text>
+
+            </a-box>
 
         </a-scene>
     </body>
