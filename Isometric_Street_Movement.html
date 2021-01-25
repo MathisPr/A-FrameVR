@@ -6,16 +6,30 @@
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
         <!-- Script for event-set -->
         <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+        <!-- Script A-Frame Extras -->
+        <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
         <!-- Navigation Mesh A-Frame Inspector Plugin by Don McCurdy-->
         <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+        <!-- -->
+        <script src="https://unpkg.com/aframe-animation-component@5.1.2/dist/aframe-animation-component.min.js"></script>
     </head>
     
     <a-assets>
         <a-asset-item
             id="Isometric_Street"
-            
             src="https://raw.githubusercontent.com/MathisPr/ARProject/main/assets/Isometric_Street.gltf"
         ></a-asset-item>
+
+        <a-asset
+            id="Nav_Mesh"
+            src="https://raw.githubusercontent.com/MathisPr/A-FrameVR/main/Isometric_Street_Nav-Mesh.gltf"
+        ></a-asset>
+
+        <!--
+        <audio src="https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav" autoplay
+        preload></audio>
+        -->
+
         <!-- src="assets/Isometric_Street.gltf" -->
     </a-assets>
 
@@ -23,7 +37,7 @@
     <body>
         <a-scene inspector-plugin-recast>
             <!-- Camera Rig -->
-            <a-entity position="0 0 6">
+            <a-entity position="0 0 6" movement-controls="constrainToNavMesh: true">
                 <!-- Camera -->
                 <!-- The "easing" property has been removed from the wasd-controls component (line 17) -->
                 <!-- look-controls="pointerLockEnabled: true" - means Camera follows mouse -->
@@ -35,27 +49,51 @@
                 </a-entity>
                 -->
 
-                <a-entity>
+                <!-- RIG -->
+                
+                <!--
+                <a-camera 
+                    position="7 1.6 0"
+					look-controls="pointerLockEnabled: true"
+                    wasd-controls="acceleration: 50"
+                    movement-controls="constrainToNavMesh: true"  
+                >
+                -->
 
-                <a-camera position="7 1.6 0"
-					  look-controls="pointerLockEnabled: true"
-                      wasd-controls="acceleration: 50">
-                     
+                  <!-- CAMERA -->
+                <a-camera>
+                    <a-entity id="rig" movement-controls="constrainToNavMesh: true">
+                        <a-entity camera look-controls="pointerLockEnabled: true" position="0 1.6 0"></a-entity>
+                    </a-entity>
+
                     <!-- Cursor -->  
-                    <a-entity cursor="fuse: true; fuseTimeout: 1500" position="0 0 -1"
+                    <a-entity 
+                      cursor="fuse: true; fuseTimeout: 1500" 
+                      position="0 0 -1"
                       geometry="primitive: sphere; radius: 0.01"
                       material="color: #000000; shader: flat; opacity: 0.5"
-            >
+                    >
                         <!-- Animation Cursor scale - not working -->
                         <a-animation    
-                                attribute="scale"
-                                to="30 30 30"
+                        animation__color="property: components.material.material.color; type: color; dir: alternate; dur: 1000;
+                        easing: easeInSine; loop: true; to: #FFF">
+
+                        <!--
+                        attribute="scale"
+                                to="15 15 15"
                                 dur="1500"
                                 begin="cursor-fusing"
                                 fill="backwards"
-                        >
+                        -->
+
                         </a-animation>
                     </a-entity>
+
+                    <a-entity 
+                        text="value: Move with WASD; width: 5; color: #eee; align: middle; anchor: center; side: double; zOffset: 0.01" 
+                        position="0 0 -6"
+                    ></a-entity>
+
 
                 </a-camera>
 
@@ -63,7 +101,7 @@
 
             <!-- Sky -->
             <a-sky color="#212121"></a-sky>
-            
+
 
             <!-- Street Scene -->
             <a-entity
@@ -72,11 +110,27 @@
                 gltf-model="#Isometric_Street"
     
                 shader="standard"
-                
                 shadow="true"
-
                 >
             </a-entity>
+
+
+            <!-- Nav-Mesh Scene -->
+            <a-entity
+                position="0 0 0.2"    
+                gltf-model="#Nav_Mesh"
+                nav-mesh
+                visible="true"
+            >
+            </a-entity>
+
+            <!-- sound -->
+            <a-sound 
+                src="https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav" 
+                autoplay="true"
+                position="10.8 3.4 0.25"
+                loop="true"
+            ></a-sound>
 
 
         <!-- Light System-->
@@ -84,7 +138,7 @@
             <!-- Street-Light 1 -->
             <a-entity
                 position="10.8 3.4 0.25"
-                light="type:  point;  color: #e2c712;  intensity:  4;  castShadow:  true; distance: 3"
+                light="type: point; color: #e2c712;  intensity: 4;  castShadow: true; distance: 3"
             ></a-entity>
 
             <a-entity   light="type: spot; angle: -20; color: #e2c712; castShadow: true; penumbra: 1; target: null; distance: 5; intensity: 15"
@@ -163,7 +217,7 @@
                     position="9 1.5 -9"
                     event-set__enter="_event: mouseenter; _target: #TestText; visible: true"     
                     event-set__leave="_event: mouseleave; _target: #TestText; visible: false"
-                    event-set__tarcol="_event: click; _target: #TestText; material.color: #00AAFF"
+                    event-set__tarcol="_event: click; _target: #box; material.color: #ff2300"
             >
 
             <a-text
